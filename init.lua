@@ -415,7 +415,7 @@ require('lazy').setup({
           --   mappings = {
           --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           --   },
-          path_display = 'tail',
+          path_display = require('telescope.themes').get_dropdown { path_display = { 'smart' } },
         },
         -- pickers = {}
         extensions = {
