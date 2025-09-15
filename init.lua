@@ -679,8 +679,76 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-        -- pyright = {},
-        ruff = {},
+
+        -- Using this guy's config to make pyright and ruff work together: https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
+        pyright = {
+
+          on_attach = function(client, _)
+            -- Disable all capabilities except hoverProvider
+            -- client.server_capabilities.completionProvider = false
+            -- client.server_capabilities.definitionProvider = false
+            -- client.server_capabilities.typeDefinitionProvider = false
+            -- client.server_capabilities.implementationProvider = false
+            -- client.server_capabilities.referencesProvider = false
+            -- client.server_capabilities.documentSymbolProvider = false
+            -- client.server_capabilities.workspaceSymbolProvider = false
+            -- client.server_capabilities.codeActionProvider = false
+            -- client.server_capabilities.documentFormattingProvider = false
+            -- client.server_capabilities.documentRangeFormattingProvider = false
+            -- client.server_capabilities.renameProvider = false
+            -- client.server_capabilities.signatureHelpProvider = false
+            -- client.server_capabilities.documentHighlightProvider = false
+            -- client.server_capabilities.foldingRangeProvider = false
+            -- client.server_capabilities.semanticTokensProvider = false
+            -- client.server_capabilities.declarationProvider = false
+            -- client.server_capabilities.callHierarchyProvider = false
+            -- client.server_capabilities.diagnosticProvider = false
+
+            -- Enable hoverProvider
+            client.server_capabilities.hoverProvider = true
+          end,
+          capabilities = (function()
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
+            return capabilities
+          end)(),
+          settings = {
+            python = {
+              analysis = {
+                useLibraryCodeForTypes = true,
+                diagnosticSeverityOverrides = {
+                  reportUnusedVariable = 'warning',
+                },
+                typeCheckingMode = 'off', -- Set type-checking mode to off
+                diagnosticMode = 'off', -- Disable diagnostics entirely
+              },
+            },
+          },
+        },
+
+        -- Using this guy's config to make pyright and ruff work together: https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
+        ruff = {
+          on_attach = function(client, _)
+            if client.name == 'ruff' then
+              -- disable hover in favor of pyright
+              client.server_capabilities.hoverProvider = false
+            end
+          end,
+          init_options = {
+            settings = {
+              args = {
+                -- '--ignore',
+                -- 'F821', -- undefined-name https://docs.astral.sh/ruff/rules/undefined-name/
+                -- '--ignore',
+                -- 'E402', -- manual-from-import https://docs.astral.sh/ruff/rules/manual-from-import/
+                -- '--ignore',
+                -- 'E722', -- bare-except https://docs.astral.sh/ruff/rules/bare-except/
+                -- '--ignore',
+                -- 'E712', -- true-false-comparison https://docs.astral.sh/ruff/rules/true-false-comparison/
+              },
+            },
+          },
+        },
         phpactor = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
