@@ -693,8 +693,8 @@ require('lazy').setup({
             -- client.server_capabilities.documentSymbolProvider = false
             -- client.server_capabilities.workspaceSymbolProvider = false
             -- client.server_capabilities.codeActionProvider = false
-            -- client.server_capabilities.documentFormattingProvider = false
-            -- client.server_capabilities.documentRangeFormattingProvider = false
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
             -- client.server_capabilities.renameProvider = false
             -- client.server_capabilities.signatureHelpProvider = false
             -- client.server_capabilities.documentHighlightProvider = false
@@ -734,20 +734,6 @@ require('lazy').setup({
               client.server_capabilities.hoverProvider = false
             end
           end,
-          init_options = {
-            settings = {
-              args = {
-                -- '--ignore',
-                -- 'F821', -- undefined-name https://docs.astral.sh/ruff/rules/undefined-name/
-                -- '--ignore',
-                -- 'E402', -- manual-from-import https://docs.astral.sh/ruff/rules/manual-from-import/
-                -- '--ignore',
-                -- 'E722', -- bare-except https://docs.astral.sh/ruff/rules/bare-except/
-                -- '--ignore',
-                -- 'E712', -- true-false-comparison https://docs.astral.sh/ruff/rules/true-false-comparison/
-              },
-            },
-          },
         },
         phpactor = {},
         -- rust_analyzer = {},
@@ -842,6 +828,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        python = { 'ruff_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1068,10 +1055,10 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
