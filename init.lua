@@ -679,85 +679,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         gopls = {},
-
-        -- Using this guy's config to make pyright and ruff work together: https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
-        pyright = {
-
-          on_attach = function(client, _)
-            -- Disable all capabilities except hoverProvider
-            -- client.server_capabilities.completionProvider = false
-            -- client.server_capabilities.definitionProvider = false
-            -- client.server_capabilities.typeDefinitionProvider = false
-            -- client.server_capabilities.implementationProvider = false
-            -- client.server_capabilities.referencesProvider = false
-            -- client.server_capabilities.documentSymbolProvider = false
-            -- client.server_capabilities.workspaceSymbolProvider = false
-            -- client.server_capabilities.codeActionProvider = false
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-            -- client.server_capabilities.renameProvider = false
-            -- client.server_capabilities.signatureHelpProvider = false
-            -- client.server_capabilities.documentHighlightProvider = false
-            -- client.server_capabilities.foldingRangeProvider = false
-            -- client.server_capabilities.semanticTokensProvider = false
-            -- client.server_capabilities.declarationProvider = false
-            -- client.server_capabilities.callHierarchyProvider = false
-            -- client.server_capabilities.diagnosticProvider = false
-
-            -- Enable hoverProvider
-            client.server_capabilities.hoverProvider = true
-          end,
-          capabilities = (function()
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-            return capabilities
-          end)(),
-          settings = {
-            python = {
-              analysis = {
-                useLibraryCodeForTypes = true,
-                diagnosticSeverityOverrides = {
-                  reportUnusedVariable = 'warning',
-                },
-                typeCheckingMode = 'off', -- Set type-checking mode to off
-                diagnosticMode = 'off', -- Disable diagnostics entirely
-              },
-            },
-          },
-        },
-
-        -- Using this guy's config to make pyright and ruff work together: https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
-        ruff = {
-          on_attach = function(client, _)
-            if client.name == 'ruff' then
-              -- disable hover in favor of pyright
-              client.server_capabilities.hoverProvider = false
-            end
-          end,
-        },
-        phpactor = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        ts_ls = {},
-        lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = 'Replace',
-              },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
-            },
-          },
-        },
+        pyright = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -828,7 +750,6 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'ruff_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1056,7 +977,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
