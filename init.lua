@@ -702,10 +702,8 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettierd',
         'prettier',
-        'ruff_organize_imports',
-        'ruff_fix',
-        'ruff_format',
-        'ruff_organize_imports',
+        'isort',
+        'ruff',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
