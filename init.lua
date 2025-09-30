@@ -404,7 +404,7 @@ require('lazy').setup({
       --  - Insert mode: <c-/>
       --  - Normal mode: ?
       --
-      -- This opens a window that shows you all of the keymaps for the current
+      -- This opens a window that shows you all of the keymaps for the currenu
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
 
@@ -702,8 +702,10 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'prettierd',
         'prettier',
-        'isort',
-        'ruff',
+        'ruff_organize_imports',
+        'ruff_fix',
+        'ruff_format',
+        'ruff_organize_imports',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -757,7 +759,8 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'ruff' },
+        --
+        python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
