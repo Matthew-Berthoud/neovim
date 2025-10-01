@@ -226,6 +226,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('USER_SPELLCHECK', { clear = true }),
+  pattern = { 'markdown', 'gitcommit', 'text' }, -- Add any other filetypes you want
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = 'en_us' -- Set your desired language(s)
+  end,
+  desc = 'Enable spellcheck for writing',
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
