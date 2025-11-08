@@ -242,6 +242,14 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   command = 'update',
 })
 
+-- Automatically reload buffers when files are changed externally
+vim.o.autoread = true
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  pattern = '*',
+  command = "if mode() != 'c' && getfsize(expand('%')) != -1 | checktime | endif",
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
