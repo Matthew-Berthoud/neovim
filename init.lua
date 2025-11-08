@@ -236,6 +236,12 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Enable spellcheck for writing',
 })
 
+-- Save the current buffer after you stop typing
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  pattern = '*',
+  command = 'update',
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
