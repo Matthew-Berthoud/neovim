@@ -173,6 +173,10 @@ vim.o.confirm = true
 -- enable soft wrap
 vim.opt.linebreak = true
 
+-- autoread and autowrite
+vim.o.autoread = true
+vim.o.autowriteall = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -226,6 +230,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Spellcheck
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('USER_SPELLCHECK', { clear = true }),
   pattern = { 'markdown', 'gitcommit', 'text' }, -- Add any other filetypes you want
@@ -234,21 +239,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.spelllang = 'en_us' -- Set your desired language(s)
   end,
   desc = 'Enable spellcheck for writing',
-})
-
--- Save the current buffer after you stop typing
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-  pattern = '*',
-  -- Only run 'update' if the buffer is a normal, modifiable file
-  command = "if &modifiable && &buftype == '' | update | endif",
-})
-
--- Automatically reload buffers when files are changed externally
-vim.o.autoread = true
-
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
-  pattern = '*',
-  command = "if mode() != 'c' && getfsize(expand('%')) != -1 | checktime | endif",
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -934,7 +924,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-day'
     end,
   },
 
