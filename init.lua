@@ -734,6 +734,8 @@ require('lazy').setup({
         'isort',
         'ruff',
         'shfmt',
+        'shellharden',
+        'beautysh',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -806,9 +808,9 @@ require('lazy').setup({
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
         --
         -- Shell formatter
-        sh = { 'shfmt' },
-        zsh = { 'shfmt' },
-        bash = { 'shfmt' },
+        sh = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
+        zsh = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
+        bash = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
       },
     },
   },
