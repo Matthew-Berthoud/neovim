@@ -808,9 +808,9 @@ require('lazy').setup({
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
         --
         -- Shell formatter
-        sh = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
-        zsh = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
-        bash = { 'beautysh', 'shellharden', 'shfmt', stop_after_first = true },
+        sh = { 'shfmt', 'beautysh', 'shellharden', stop_after_first = true },
+        zsh = { 'shfmt', 'beautysh', 'shellharden', stop_after_first = true },
+        bash = { 'shfmt', 'beautysh', 'shellharden', stop_after_first = true },
       },
     },
   },
