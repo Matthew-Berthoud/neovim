@@ -733,6 +733,7 @@ require('lazy').setup({
         'prettier',
         'isort',
         'ruff',
+        'shfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -803,6 +804,11 @@ require('lazy').setup({
         yaml = { 'prettierd', 'prettier', stop_after_first = true },
         graphql = { 'prettierd', 'prettier', stop_after_first = true },
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
+        --
+        -- Shell formatter
+        sh = { 'shfmt' },
+        zsh = { 'shfmt' },
+        bash = { 'shfmt' },
       },
     },
   },
