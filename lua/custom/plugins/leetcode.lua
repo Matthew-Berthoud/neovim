@@ -9,6 +9,6 @@ return {
   },
   opts = {
     -- configuration goes here
-    lang = 'golang',
+    lang = 'typescript',
   },
 }
