@@ -153,7 +153,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
--- Go: tabs, shown as width 4
+-- Go: actual tabs, shown as width 4
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',
   callback = function()
@@ -164,9 +164,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Python: 4-space soft tabs
+-- Python & C: 4-space soft tabs
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'python',
+  pattern = { 'python', '*.c' },
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.shiftwidth = 4
@@ -300,7 +300,6 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   -- 'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically (the thing above wasn't working)
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
