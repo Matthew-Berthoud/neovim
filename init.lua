@@ -263,15 +263,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Spellcheck
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('USER_SPELLCHECK', { clear = true }),
-  pattern = { 'markdown', 'gitcommit', 'text' }, -- Add any other filetypes you want
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = 'en_us' -- Set your desired language(s)
+    -- You can set specific colors, or link them to existing groups like 'Title', 'Function', etc.
+    vim.api.nvim_set_hl(0, '@markup.heading.1.markdown', { fg = '#e06c75', bold = true })
+    vim.api.nvim_set_hl(0, '@markup.heading.2.markdown', { fg = '#e5c07b', bold = true })
+    vim.api.nvim_set_hl(0, '@markup.heading.3.markdown', { fg = '#98c379', bold = true })
+    vim.api.nvim_set_hl(0, '@markup.heading.4.markdown', { fg = '#61afef', bold = true })
+    vim.api.nvim_set_hl(0, '@markup.heading.5.markdown', { fg = '#c678dd', bold = true })
+    vim.api.nvim_set_hl(0, '@markup.heading.6.markdown', { fg = '#56b6c2', bold = true })
   end,
-  desc = 'Enable spellcheck for writing',
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
